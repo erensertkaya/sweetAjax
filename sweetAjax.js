@@ -3,10 +3,10 @@ $.widget( "sa.sweetAjax", {
     // Default options.
     options: {
         autoAlert:false,
-        sweetAlert:null,
+        sweetAlert:false,
         sweetAlertOptions:{},
         redirect:false,
-        redirectURL: "/user/access/login",
+        redirectURL: "",
         defaultErrorFields:{
             heading: "heading",
             message: "message",
