@@ -3,10 +3,15 @@ $.widget( "sa.sweetAjax", {
     // Default options.
     options: {
         autoAlert:false,
-        sweetAlert:null,
+        sweetAlert:false,
         sweetAlertOptions:{},
         redirect:false,
-        redirectURL: "/user/access/login",
+        redirectURL: "",
+        notShow:{
+            error:true,
+            success:true,
+            parserror:true,
+        },
         defaultErrorFields:{
             heading: "heading",
             message: "message",
@@ -49,6 +54,7 @@ $.widget( "sa.sweetAjax", {
                 if (option === "complete"){
                     let proxiedComplete = ajaxOptions[option]; // Preserving original function
                     ajaxOptions[option] = (jqXHR, textStatus) => {
+                        if (this.options.notShow[textStatus] === true){
                             if (jqXHR.responseJSON){
                                 this._alert({
                                     title: jqXHR.responseJSON[this.options.defaultErrorFields.heading],
@@ -63,6 +69,7 @@ $.widget( "sa.sweetAjax", {
                                     icon: this.options.default500Error[this.options.defaultErrorFields.type],
                                 },jqXHR.status);
                             }
+                        }
                         return proxiedComplete.apply(this, arguments);
                     }
 
@@ -117,7 +124,7 @@ $.widget( "sa.sweetAjax", {
             })
         }
         if (this.options.sweetAlert === false ){
-            alert(data.text);
+            alert(`${this._capitalizeFirstLetter(data.icon)}: \n ${data.title} \n ${data.text}`);
             this._redirect(statusCode);
         }
     },
@@ -138,6 +145,10 @@ $.widget( "sa.sweetAjax", {
             res = src;
         }
         return res;
+    },
+
+    _capitalizeFirstLetter: function(str) {
+        return str[0].toUpperCase() + str.slice(1);
     }
 
 });
