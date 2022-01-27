@@ -17,7 +17,7 @@ $.widget( "sa.sweetAjax", {
             message: "message",
             type: "type",
         },
-        default500Error:{
+        serverError:{
             heading: "Internal Server Error",
             message: "Try again, if it  continues contact with IT team.",
             type: "error",
@@ -64,9 +64,9 @@ $.widget( "sa.sweetAjax", {
                             }
                             else{
                                 this._alert({
-                                    title: this.options.default500Error[this.options.defaultErrorFields.heading],
-                                    text: this.options.default500Error[this.options.defaultErrorFields.message],
-                                    icon: this.options.default500Error[this.options.defaultErrorFields.type],
+                                    title: this.options.serverError[this.options.defaultErrorFields.heading],
+                                    text: this.options.serverError[this.options.defaultErrorFields.message],
+                                    icon: this.options.serverError[this.options.defaultErrorFields.type],
                                 },jqXHR.status);
                             }
                         }
@@ -90,9 +90,9 @@ $.widget( "sa.sweetAjax", {
                     let proxiedError = ajaxOptions[option]; // Preserving original function
                     ajaxOptions[option] = (jqXHR,textStatus,errorThrown ) => {
                             this._alert({
-                                title: this.options.default500Error[this.options.defaultErrorFields.heading],
-                                text: this.options.default500Error[this.options.defaultErrorFields.message],
-                                icon: this.options.default500Error[this.options.defaultErrorFields.type],
+                                title: this.options.serverError[this.options.defaultErrorFields.heading],
+                                text: this.options.serverError[this.options.defaultErrorFields.message],
+                                icon: this.options.serverError[this.options.defaultErrorFields.type],
                             },jqXHR.status);
                         return proxiedError.apply(this, arguments);
                     }
