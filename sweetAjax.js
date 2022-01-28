@@ -36,13 +36,6 @@ $.widget( "sa.sweetAjax", {
             ...this.options,
         }
 
-        //remove unnecessary things
-        for (option in ajaxOptions){
-            if (option === "classes" || option === "disabled" || option === "create"){
-                delete ajaxOptions[option];
-            }
-        }
-
         // add complete handler if none of the ajax handlers not sent
         if (!Object.keys(ajaxOptions).includes("complete") && !Object.keys(ajaxOptions).includes("success") && !Object.keys(ajaxOptions).includes("error")){
             ajaxOptions.complete = function (){}
